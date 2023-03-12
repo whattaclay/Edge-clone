@@ -11,31 +11,27 @@ public class MainCharacter : MonoBehaviour
     private Vector3 _axis;
     private bool _isMoving;
     private Rigidbody _rigidbody;
-    private Vector3 _fallingDirection = Vector3.down;
+    private Vector3 _verticalComponent = Vector3.down;
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
     }
     void Update()
     {
-        if (!Physics.Raycast(transform.position, _fallingDirection, 1f))
-        {
-            Debug.Log("falling");
-        }
-        if (_isMoving) return;
-        if (Input.GetKey(KeyCode.A))
+        if (_isMoving)return;
+        if (Input.GetKeyDown(KeyCode.A))
         {
             Move(Vector3.left);
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKeyDown(KeyCode.D))
         {
             Move(Vector3.right);
         }
-        else if (Input.GetKey(KeyCode.W))
+        else if (Input.GetKeyDown(KeyCode.W))
         {
             Move(Vector3.forward);
         } 
-        else if (Input.GetKey(KeyCode.S))
+        else if (Input.GetKeyDown(KeyCode.S))
         {
             Move(Vector3.back);
         }
@@ -46,16 +42,14 @@ public class MainCharacter : MonoBehaviour
    
     private void Move(Vector3 direction)
     {
-        var verticalComponent = Vector3.down;
         var hasWall = HasWallInDirection(direction);
         if (hasWall)
         {
-            verticalComponent = Vector3.up;
+            _verticalComponent = Vector3.up;
         }
-        _pivotPoint = (direction / 2f) + (verticalComponent / 2f) + transform.position; //задаем точку вращения через сложение двух вескоров и
+        _pivotPoint = (direction / 2f) + (_verticalComponent / 2f) + transform.position; //задаем точку вращения через сложение двух вескоров и
         _axis = Vector3.Cross(Vector3.up, direction);                          //прибавляем позицию куба, чтобы точка не улетела
         StartCoroutine(Roll(_pivotPoint, _axis));
-        
         // var position = transform.position;//присвоили переменной position позицию персонажа
         // position += direction * Time.deltaTime;// сделали, чтобы при нажатии клавиши, в заданном направлении менялись координаты
         //transform.position = position;// вернули позиции персонажа измененные координаты
@@ -69,22 +63,32 @@ public class MainCharacter : MonoBehaviour
     {
         _isMoving = true;
         _rigidbody.isKinematic = true;
-
-        for (int i = 0; i < 90 / rollSpeed; i++)
+        int deg = 90;
+        if (_verticalComponent != Vector3.down)
+        {
+            deg = 180;
+        }
+        for (int i = 0; i < deg / rollSpeed; i++)
         {
             transform.RotateAround(pivot, axis, rollSpeed);
             yield return new WaitForSeconds(0.02f);
         }
-        
+        /*if (_isFalling)
+        {
+            _rigidbody.isKinematic = false;
+            _rigidbody.freezeRotation= true;
+            _isFalling = false;
+        }*/
         _rigidbody.isKinematic = false;
         _isMoving = false;
+        _verticalComponent = Vector3.down;
     }
     private void OnDrawGizmos()
     {
        
-         //Gizmos.color = Color.black;//цвет гизмоса
+        //Gizmos.color = Color.black;//цвет гизмоса
         //Gizmos.DrawSphere(_pivotPoint, 0.2f);//рисует сферу в заданной точке, определенного радиуса 
-        //Gizmos.DrawRay(_pivotPoint, _axes );//рисует луч из заданной точки и оси
+        //Gizmos.DrawRay(_pivotPoint, _fallingDirection );//рисует луч из заданной точки и оси
     }
    
 }

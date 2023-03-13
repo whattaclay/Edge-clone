@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.PlayerLoop;
+using Update = Unity.VisualScripting.Update;
 
 public class MainCharacter : MonoBehaviour
 {
@@ -11,37 +14,47 @@ public class MainCharacter : MonoBehaviour
     private Vector3 _axis;
     private bool _isMoving;
     private Rigidbody _rigidbody;
+    private bool _isFalling;
     private Vector3 _verticalComponent = Vector3.down;
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
     }
-    void Update()
+    private bool FallingController()
     {
+        return !Physics.Raycast(transform.position, Vector3.down, 0.55f);
+        /*if (!Physics.Raycast(transform.position, Vector3.down, 0.5f))
+        {
+            _rigidbody.freezeRotation = true;
+            _isMoving = true;
+        }*/
+    }
+    void Update()
+    {   
         if (_isMoving)return;
-        if (Input.GetKeyDown(KeyCode.A))
+        _isFalling = FallingController();
+        _rigidbody.freezeRotation = _isFalling;
+        if (_isFalling) return;
+        if (Input.GetKey(KeyCode.A))
         {
             Move(Vector3.left);
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
         {
             Move(Vector3.right);
         }
-        else if (Input.GetKeyDown(KeyCode.W))
+        else if (Input.GetKey(KeyCode.W))
         {
             Move(Vector3.forward);
         } 
-        else if (Input.GetKeyDown(KeyCode.S))
+        else if (Input.GetKey(KeyCode.S))
         {
             Move(Vector3.back);
         }
-        
     }
-    
-
-   
     private void Move(Vector3 direction)
     {
+        
         var hasWall = HasWallInDirection(direction);
         if (hasWall)
         {
@@ -58,7 +71,7 @@ public class MainCharacter : MonoBehaviour
     {
         return Physics.Raycast(transform.position, direction, 0.55f);
     }
-
+    
     private IEnumerator Roll(Vector3 pivot, Vector3 axis)
     {
         _isMoving = true;
@@ -68,7 +81,7 @@ public class MainCharacter : MonoBehaviour
         {
             deg = 180;
         }
-        for (int i = 0; i < deg / rollSpeed; i++)
+        for (var i = 0; i < deg / rollSpeed; i++)
         {
             transform.RotateAround(pivot, axis, rollSpeed);
             yield return new WaitForSeconds(0.02f);
@@ -83,13 +96,13 @@ public class MainCharacter : MonoBehaviour
         _isMoving = false;
         _verticalComponent = Vector3.down;
     }
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
        
         //Gizmos.color = Color.black;//цвет гизмоса
         //Gizmos.DrawSphere(_pivotPoint, 0.2f);//рисует сферу в заданной точке, определенного радиуса 
         //Gizmos.DrawRay(_pivotPoint, _fallingDirection );//рисует луч из заданной точки и оси
-    }
+    }*/
    
 }
 

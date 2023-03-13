@@ -3745,7 +3745,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 30
+  field of view: 57.22745
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -3770,8 +3770,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 393531851}
-  m_LocalRotation: {x: 0.3271064, y: -0.2731316, z: 0.09936028, w: 0.89918196}
-  m_LocalPosition: {x: 4.4632916, y: 6.7871733, z: -6.4118104}
+  m_LocalRotation: {x: 0.34330922, y: -0.099198356, z: 0.036502127, w: 0.9332557}
+  m_LocalPosition: {x: 1.4557798, y: 4.5857143, z: -5.6801376}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7654,7 +7654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4b65118e69f7074da42e61a18e81844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rollSpeed: 5
+  rollSpeed: 7
 --- !u!65 &774028449
 BoxCollider:
   m_ObjectHideFlags: 0

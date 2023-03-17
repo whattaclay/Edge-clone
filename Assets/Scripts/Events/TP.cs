@@ -10,7 +10,6 @@ namespace Events
         public void TPPosition()
         {
             _player.transform.position = tpPoint;
-            Debug.Log("tp");
         }
         
     }

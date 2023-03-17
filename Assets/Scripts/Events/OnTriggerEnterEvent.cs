@@ -13,7 +13,6 @@ namespace Events
         {
             if (collision.gameObject.CompareTag(playerTag))
             {
-                Debug.Log("Hello");
                 onPressed.Invoke();
             }
         }

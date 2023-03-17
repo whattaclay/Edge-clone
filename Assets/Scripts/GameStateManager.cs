@@ -1,5 +1,11 @@
 ﻿using System;
+using System.Linq;
+using System.Net.Mime;
+using Events;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class GameStateManager : MonoBehaviour
@@ -8,6 +14,9 @@ public class GameStateManager : MonoBehaviour
     private bool _isDead = false;
     public static GameObject _player;
     private int _starCounter = 0;
+    [SerializeField] private TextMeshProUGUI _textStarCounter;
+    private GameObject[] _starsOnScene;
+    public UnityEvent allStarsCollected;
     private void Awake()
     {
         if (Instance != null)
@@ -21,7 +30,9 @@ public class GameStateManager : MonoBehaviour
 
     private void Start()
     {
+        _starsOnScene =GameObject.FindGameObjectsWithTag("Star");
         _player = FindObjectOfType<PlayerInput>().gameObject;
+        _textStarCounter.text = _starCounter + " / " + _starsOnScene.Length;
     }
 
     public void Die()
@@ -35,6 +46,12 @@ public class GameStateManager : MonoBehaviour
     public void StarCounter()
     {
         _starCounter += 1;
-        Debug.Log(_starCounter);
+        _textStarCounter.text = _starCounter + " / " + _starsOnScene.Length;
+        if (_starCounter == _starsOnScene.Length)
+        {
+            allStarsCollected.Invoke();
+        }
     }
+
+    
 }

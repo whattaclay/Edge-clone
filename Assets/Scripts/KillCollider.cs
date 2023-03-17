@@ -12,7 +12,6 @@ public class KillCollider : MonoBehaviour
             GameStateManager.Instance.Die();
         }
     }
-
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag(playerTag))
@@ -20,6 +19,7 @@ public class KillCollider : MonoBehaviour
             GameStateManager.Instance.Die();
         }
     }
+    
     
     
 }

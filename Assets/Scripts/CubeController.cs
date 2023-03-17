@@ -11,9 +11,7 @@ public class CubeController : MonoBehaviour
     private bool _isMoving;
     private Rigidbody _rigidbody;
     private bool _hadWallOnPreviousStep;
-
-
-
+    
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -26,7 +24,6 @@ public class CubeController : MonoBehaviour
         {
             return;
         }
-
         _hadWallOnPreviousStep = false;
         var verticalComponent = Vector3.down;
         var hasWall = BlockChecker.HasWallInDirection(transform.position, direction);
@@ -35,8 +32,6 @@ public class CubeController : MonoBehaviour
             verticalComponent = Vector3.up;
             _hadWallOnPreviousStep = true;
         }
-
-        
         _pivotPoint = (direction / 2f) + (verticalComponent / 2f) + transform.position; //задаем точку вращения через сложение двух вескоров и
         _axis = Vector3.Cross(Vector3.up, direction);                          //прибавляем позицию куба, чтобы точка не улетела
         StartCoroutine(Roll(_pivotPoint, _axis));

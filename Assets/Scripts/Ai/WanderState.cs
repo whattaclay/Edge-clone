@@ -7,6 +7,7 @@ namespace Ai
     {
         private readonly Vector3 _direction;
         private IAiState _nextState;
+        private Rigidbody _rigidBody;
 
         public WanderState(Vector3 direction)
         {

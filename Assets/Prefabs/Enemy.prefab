@@ -95,11 +95,11 @@ GameObject:
   - component: {fileID: 1591200788385052977}
   - component: {fileID: 1591200788385052978}
   - component: {fileID: 1591200788385052976}
-  - component: {fileID: 1591200788385052980}
+  - component: {fileID: 231358196544639335}
   - component: {fileID: 1591200788385052981}
   m_Layer: 2
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rollSpeed: 5
---- !u!114 &1591200788385052980
+--- !u!114 &231358196544639335
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -127,7 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distance: 5
   duration: 2
-  delay: 0.1
+  delay: 0.3
 --- !u!114 &7908192801177878913
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using StartAndLoadScreen;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 [RequireComponent(typeof(CubeController))]
